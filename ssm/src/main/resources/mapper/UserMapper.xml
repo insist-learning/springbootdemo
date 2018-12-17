@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.dao.UserDao">
+	<!-- resultType 如果没有配置就在写全类名 -->
+	<!-- 查询一个 -->
+	<select id="getByName" resultType="User">
+		SELECT * FROM USER WHERE USERNAME = #{NAME}
+	</select>
+	
+	<!-- 查询所有并分页 -->
+	<select id="getAllUser" resultType="User">
+		SELECT * FROM USER LIMIT ${begin},${num}
+	</select>
+	<!-- 查询总记录数 -->
+	<select id="getUserCount" resultType="int">
+		SELECT COUNT(*) FROM USER;
+	</select>
+	<select id="getById" resultType="User">
+		SELECT * FROM USER WHERE ID = ${id}
+	</select>
+	
+	<!-- 插入数据 -->
+	<!-- parameterType 表示参数是属于哪一个 bean 里面的属性，注意区分大小写 -->
+	<insert id="addUser" parameterType="User">
+		INSERT INTO USER(USERNAME,AGE) VALUES(#{username},#{age})
+	</insert>
+	
+	<!-- 修改数据 -->
+	<update id="updateUser" parameterType="User">
+		UPDATE USER SET USERNAME = #{username} WHERE ID = #{id}
+	</update>
+	
+	<!-- 删除数据 -->
+	<delete id="deleteUser" parameterType="int">
+		DELETE FROM USER WHERE ID = #{id}
+	</delete>
+</mapper>
